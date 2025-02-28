@@ -17,7 +17,7 @@
             <p><a class="navbar-brand" href="{% url 'home' %}">User: {{user.name}}</a></p>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="ms-auto d-flex align-items-center">
-                    <a href="{% url 'system' %}" class="btn btn-outline-light me-2">Home Page</a>                
+                    <a href="{% url 'home' %}" class="btn btn-outline-light me-2">Home Page</a>                
                     <a href="{% url 'system' %}" class="btn btn-outline-light me-2">System</a>
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -33,8 +33,9 @@
                     </div>
                 </div>
             {% else %}
-            <p class="fs-3 text-white">Welcome to your Home Page</p>
+            
             <div class="collapse navbar-collapse" id="navbarNav">
+                <a href="{% url 'home' %}" class="btn btn-primary me-2">Home Page</a> 
                 <div class="ms-auto">
                     <a href="{% url 'login' %}" class="btn btn-outline-light me-2">Login</a>
                     <a href="{% url 'register' %}" class="btn btn-success">Register</a>
