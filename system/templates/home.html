@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block 'title' %}Home Page{% endblock %} 
+
+{% block 'content' %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-6">Let's explore the Django framework</h1>
+    </div>
+
+    <div class="mt-5">
+        <h2 class="h3">About Django</h2>
+        <p>
+            Django is one of the most popular frameworks for web development with Python. It follows a structure called MVC (Model-View-Controller), which helps organize code in a clear and efficient way.
+        </p>
+        <p>
+            One of Django’s biggest advantages is that it comes with many built-in features, so you can create applications quickly without having to set up everything from scratch. This makes Django a great choice for beginners who want to develop web applications efficiently.
+        </p>
+        <p>
+            Django was created in 2003 by Simon Willison and Adrian Holovaty while working for a newspaper. They needed to build web applications quickly and chose Python for its simplicity and readability. To make development faster and more organized, they created Django.
+        </p>
+        <p>
+            In 2005, Django was released as an open-source framework, named after jazz guitarist Django Reinhardt. Over time, it became powerful enough to handle large websites. In 2008, the Django Software Foundation was founded to maintain and improve the framework.
+        </p>
+        <p>
+            Today, Django is a widely used open-source project with a global community. It continues to evolve with new features and updates, staying true to its goal of helping developers build clean, reusable, and maintainable web applications.
+        </p>
+
+        <h2 class="h3 mt-4">Django Session</h2>
+        <p>
+            When a user visits a Django-powered website, Django creates a unique session ID for that user. This ID is stored in the user's browser, typically in a cookie. This session ID is then sent with every request the user makes to the server. On the server side, Django uses this ID to access the session data stored for that particular user.
+        </p>
+        <p>
+            The session can store various types of data, such as user preferences, login information, or any temporary information needed for the user's session on the website. It’s especially useful for features like user authentication, shopping carts, or personalized content.
+        </p>
+        <p>
+            Sessions in Django are managed automatically, but you can customize how data is stored, whether in the database, in the file system, or in cache. Django handles session expiration and provides tools to easily access and modify session data during the user’s interaction with the site.
+        </p>
+
+        <h2 class="h3 mt-4">Django Messages</h2>
+        <p>
+            Django Message is a built-in framework used to display temporary, one-time notifications to users. It is often used for providing feedback about user actions, such as success messages after form submissions, error alerts, or other system messages.
+        </p>
+        <p>
+            The framework works by storing messages in the session data. Once a message is created and added to the session, it can be displayed on the next request. This means that messages are shown on the following page the user visits, providing an effective way to alert users without interrupting their current workflow.
+        </p>
+        <p>
+            Django Messages are typically used for displaying status updates, validation errors, or confirmation messages. The messages can be categorized by types such as success, error, warning, or info, and styled differently to indicate the importance of the message.
+        </p>
+        <p>
+            The Django Messages framework is simple to implement. You can add messages to views and display them in templates using a simple tag. Django also allows customization, so you can create custom message types or alter the default message handling behavior.
+        </p>
+
+        <h2 class="h3 mt-5">Sources</h2>
+        <p>Information adapted from:</p>
+        <h6 class="font-weight-bold">Django References</h6>
+        <ul>
+            <li><a href="https://foreignerds.com/a-brief-history-of-django-from-inception-to-prominence/" target="_blank">Foreignerds - A Brief History of Django</a></li>
+            <li><a href="https://www.mygreatlearning.com/django/tutorials/history-of-django" target="_blank">MyGreatLearning - History of Django</a></li>
+            <li><a href="https://docs.djangoproject.com/en/5.1/faq/general/" target="_blank">Django Documentation - General FAQ</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Django/Introduction" target="_blank">MDN - Introduction to Django</a></li>
+            <li><a href="https://www.geeksforgeeks.org/complete-django-history-python/" target="_blank">GeeksforGeeks - Complete Django History</a></li>
+            <li><a href="https://www.starnavi.io/blog/what-is-django" target="_blank">Starnavi - What is Django?</a></li>
+        </ul>
+
+        <h6 class="font-weight-bold mt-4">Django Session References</h6>
+        <ul>
+            <li><a href="https://docs.djangoproject.com/en/5.1/topics/http/sessions/#:~:text=The%20session%20framework%20lets%20you,using%20the%20cookie%20based%20backend" target="_blank">Django Documentation - Sessions</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Django/Sessions" target="_blank">MDN - Django Sessions</a></li>
+            <li><a href="https://www.tutorialspoint.com/django/django_sessions.htm" target="_blank">TutorialsPoint - Django Sessions</a></li>
+            <li><a href="https://www.geeksforgeeks.org/python-sessions-framework-using-django/" target="_blank">GeeksforGeeks - Python Sessions Framework Using Django</a></li>
+        </ul>
+
+        <h6 class="font-weight-bold mt-4">Django Messages References</h6>
+        <ul>
+            <li><a href="https://medium.com/@iamalisaleh/implementing-messaging-functionality-with-the-messages-framework-in-django-23d7afc8f1d2#:~:text=The%20Django%20Messages%20Framework%20is,notifications%2C%20and%20alerts%20to%20users." target="_blank">Medium - Implementing Messaging with Django</a></li>
+            <li><a href="https://docs.djangoproject.com/en/5.1/ref/contrib/messages/" target="_blank">Django Documentation - Messages Framework</a></li>
+            <li><a href="https://django-advanced-training.readthedocs.io/en/latest/features/contrib.messages/" target="_blank">Django Advanced Training - Messages</a></li>
+            <li><a href="https://ordinarycoders.com/blog/article/django-messages-framework" target="_blank">Ordinary Coders - Django Messages Framework</a></li>
+            <li><a href="https://dev.to/doridoro/django-messages-framework-482p" target="_blank">Dev.to - Django Messages Framework</a></li>
+        </ul>
+    </div>
+</div>
+
+{% endblock  %}
+
+
