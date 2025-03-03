@@ -2,10 +2,234 @@
 {% block 'title' %} System {% endblock %}
 
 
+
+
 {% block 'content' %}
+
 <div class="container mt-5">
-    <h1 class="mb-4">How to Build This Django Project from Scratch</h1>
-    <p>This page is under construction... :)</p>
-    
+    <h1 class="mb-4">Django Project Setup Guide</h1>
+    <p>This guide provides a step-by-step process to help you create a user authentication project using Python, Django Messages, and Django Sessions.</p>
+    <p>For code editing, we will use VSCode. You can download it and follow the installation instructions from the official website: <a href="https://code.visualstudio.com">https://code.visualstudio.com</a> </p> 
+    <p>In this guide, the term <code>python</code> refers to the Python interpreter on Windows, while <code>python3</code> is used for Linux systems. This distinction is important because Linux often requires python3 to explicitly call Python 3, whereas Windows uses python by default. In the instructions below, if you are using Linux, simply replace every occurrence of "python" with "python3" when running commands</p>
+    <ol class="list-group list-group-numbered mt-5">
+
+        <li class="list-group-item">
+            <strong>Set Up Your Environment:</strong>
+            <ul class="mt-2">
+                <li>Ensure you have Python installed on your machine. If not, you can download it from the official Python website: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></li>                
+                
+
+                <li>Create a Virtual Environment:                    
+                    <ul>
+                        <li><code><strong>python3 -m venv venv</strong></code> (Linux)</li>
+                        <li><code><strong>python -m venv venv</strong></code> (Windows)</li>
+                    </ul>
+
+                <li>Activate the Virtual Environment:
+                    <ul>
+                    <li><code><strong>source venv/bin/activate</strong></code> (Linux)</li>
+                    <li><code><strong>venv\Scripts\activate</strong></code> (Windows)</li>
+                    </ul>
+                </li>
+
+                <li>Once the virtual environment is activated, install Django using pip:
+                    <code><strong>pip install django</strong></code>
+                </li>
+
+            </ul>
+        </li>
+
+        <li class="list-group-item">
+            <strong>Create the Django Project:</strong>
+            <code><strong>django-admin startproject setup .</strong></code>           
+        </li>
+
+        <li class="list-group-item">
+            <strong>Create two Apps:</strong>
+            <ul class="mt-2">
+
+                <li>App User: 
+                    <code><strong>python manage.py startapp user</strong></code>                    
+                </li>
+
+                <li>App System:                     
+                    <code><strong>python manage.py startapp system</strong></code>
+                </li>
+
+            </ul>          
+        </li>
+
+        <li class="list-group-item">
+            <strong>Configure settings.py:</strong>
+            <ul class="mt-2">
+                <li>Add 'user' and 'system' to <code>INSTALLED_APPS</code>.</li>
+                <li>Configure <code>TEMPLATES</code> to <strong>'DIRS': [os.path.join(BASE_DIR, 'templates')],</strong></li>
+                <li>Configure <code>LANGUAGE_CODE</code></li>
+                <li>Configure <code>TIME_ZONE</code></li>
+                <li>Import 'constants' from Django Message: <code>from django.contrib.messages import constants</code></li>
+                <li>At the end of the settings.py, define the <strong>'MESSAGE_TAGS': </strong>
+                    <pre><code>
+                        # DJANGO MESSAGE
+                        MESSAGE_TAGS = {
+                            constants.DEBUG: 'alert-primary',
+                            constants.ERROR: 'alert-danger',
+                            constants.SUCCESS: 'alert-success',
+                            constants.INFO: 'alert-info',
+                            constants.WARNING: 'alert-warning',
+                        }
+                    </code></pre>
+                </li> 
+            </ul>
+        </li>
+        <li class="list-group-item">
+            <strong>Configure urls routes in 'setup':</strong>
+            <p>In <code>setup/urls.py</code>, add two routes in <code>urlpatterns</code></p>
+            <ul class="mt-2">                
+                <li>route for the USER app:  <code><strong>path("auth/", include("user.urls")),</strong></code></li>
+                <li>route for the SYSTEM app:  <code><strong>path("", include("system.urls")),</strong></code></li>
+            </ul>
+            <p>Then, your <code>urlpatterns</code> needs to be like this:</p>
+            <p><code><pre>
+                urlpatterns = [
+                    path("admin/", admin.site.urls),
+                    path("auth/", include("user.urls")),
+                    path("", include("system.urls")),
+                ]
+            </pre></code></p>
+        </li>
+
+        <li class="list-group-item">
+            <strong>Create Superuser to have access Django Admin:</strong>
+            <p><code>python manage.py createsuperuser</code></p>
+            <p>Access the admin panel at <a href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a>.</p>
+        </li>
+
+        <li class="list-group-item">
+            <strong>Create Model USER:</strong>
+            <p>In <code>user/models.py</code>, define your user-related models:</p>
+            <pre><code>
+                    class User(models.Model):
+                        name = models.CharField(max_length=50)
+                        email = models.EmailField()
+                        password = models.CharField(max_length=50)
+
+                        def __str__(self):
+                            return self.name
+                </code></pre>            
+        </li>
+
+        <li class="list-group-item">
+            <strong>Make Migrations:</strong>
+            <p>In your terminal:</p>
+            <ul>
+                <li><code>python manage.py makemigrations</code></li> 
+                <li><code>python manage.py migrate</code></li>
+            </ul>
+        </li>
+
+        <li class="list-group-item">
+            <strong>Register your USER in <code>user/admin.py</code></strong>
+            <ul class="mt-2">
+                <li>Import you model USER: <code><strong>from . models import User</strong></code></li>
+                <li>Register your model: <code><strong>admin.site.register(User)</strong></code></li>
+            </ul>
+        </li>
+        <li class="list-group-item">
+            <strong>Create Views</strong>
+            <ul class="mt-2">
+                <li>In <code>user/views.py</code>, define functions for app user <strong>(register, login, logout, delete_account, edit_account)</strong>.</li>
+                <li>In <code>system/views.py</code>, define functions for app system <strong>(system, home)</strong></li>
+            </ul>
+        </li>
+
+        <li class="list-group-item">
+            <strong>Create URLs:</strong>
+            <p>In <code>user/urls.py</code>, import your views and define URLs for user views.</p>
+            <ul class="mt-2">                
+                <li><strong>register:</strong>
+                    <code>path('register/', views.register, name='register'),</code>
+                </li>
+                <li><strong>login:</strong>
+                    <code>path('login/', views.login, name='login'),,</code>
+                </li> 
+                <li><strong>logout:</strong>
+                    <code>path('logout/', views.logout, name='logout'),</code>
+                </li> 
+                <li><strong>delete_account:</strong>
+                    <code>path('delete_account/', views.delete_account, name='delete_account'),</code>
+                </li> 
+                <li><strong>edit_account:</strong>
+                    <code>path('edit_account/', views.edit_account, name='edit_account'),</code>
+                </li>                 
+            </ul>
+            <p class="mt-4">In <code>system/urls.py</code>, import your views and define URLs for sytem views.</p>
+            <ul class="mt-2">                
+                <li><strong>system:</strong>
+                    <code>path('system/', views.system, name='system'),</code>
+                </li>
+                <li><strong>home:</strong>
+                    <code>path('', views.home, name="home"),</code>
+                </li>             
+            </ul>
+        </li>
+
+        <li class="list-group-item">
+            <strong>Create Templates:</strong>
+            <p>Create a <strong>Base Template</strong> for common layout.</p>
+            <ul>
+                <li>In the project directory, create a new folder <strong><code>templates</code></strong></li>
+                <li>Now, create the file <code>base.html</code></li>
+                <li>Define your <code>base.html</code></li>
+            </ul>
+
+            <p class="mt-4">Create <strong>User Templates</strong></p>
+            <ul>
+                <li>In <code>user</code> create a template directory <code>templates</code></li>
+                <li>Create and define HTML templates for your views: <code>register.html, login.html, edit_account.html, delete_account.html</code></li>
+            </ul>
+
+            <p class="mt-4">Create <strong>System Templates</strong></p>
+            <ul>
+                <li>In <code>system</code> create a template directory <code>templates</code></li>
+                <li>Create and define HTML templates for your views: <code>home.html, system.html</code></li>
+            </ul>
+            
+        </li>
+
+        <li class="list-group-item">
+            <strong>Run the Development Server:</strong>
+            <p class="mt-2"><code>python manage.py runserver</code></p>
+            <p>Access your application at <a href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a>.</p>
+        </li>
+
+        <li class="list-group-item mb-4">
+            <strong>Create and use environment file:</strong>
+            <ul>
+                <li>In the project directory, create a new file called <code>.env</code></li>
+                <li>Install python-decouple: <code>pip install python-decouple</code></li>
+                <li>In the <code>.env</code> file, define your environment variables:</li>
+                <pre><code>
+                    SECRET_KEY=your_secret_key_django
+                    DEBUG=False (if you are in production True)
+                    ALLOWED_HOSTS=*
+                    DB_ENGINE=django.db.backends.sqlite3
+                    DB_NAME=db.sqlite3
+                </code></pre>
+                <li>Load the environment variables in your <code>setup/settings.py:</code></li>
+                    <ul>
+                        <li><code><strong>import os</strong></code></li>
+                        <li><code><strong>from decouple import config, Csv</strong></code></li>
+                        <li>Setup <strong>SECRET_KEY: </strong><code><strong>SECRET_KEY = config('SECRET_KEY')</strong></code></li>
+                        <li>Setup <strong>DEBUG: </strong><code><strong>DEBUG = config('DEBUG', default=False, cast=bool)</strong></code></li>
+                        <li>Setup <strong>ALLOWED_HOSTS: </strong><code><strong>config("ALLOWED_HOSTS", cast=Csv())</strong></code></li>
+                        <li>Setup <strong>DB_ENGINE: </strong><code><strong>'ENGINE': config('DB_ENGINE', default='django.db.backends.sqlite3'),</strong></code></li>
+                        <li>Setup <strong>DB_NAME: </strong><code><strong>'NAME': BASE_DIR / config('DB_NAME', default='db.sqlite3'),</strong></code></li>
+                    </ul>
+            </ul>
+        </li>
+
+    </ol>
 </div>
 {% endblock %}
+
+
